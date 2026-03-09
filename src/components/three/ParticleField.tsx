@@ -23,9 +23,15 @@ export default function ParticleField({ count = 2000, audioLevel = 0 }: Particle
       positions[i * 3 + 2] = r * Math.cos(phi)
 
       const t = Math.random()
-      colors[i * 3] = 1.0 - t * 0.3
-      colors[i * 3 + 1] = 0.42 + t * 0.2
-      colors[i * 3 + 2] = 0.21 + t * 0.5
+      if (t < 0.5) {
+        colors[i * 3] = 0.5 + t * 0.5
+        colors[i * 3 + 1] = 0.2 + t * 0.4
+        colors[i * 3 + 2] = 0.8 + t * 0.2
+      } else {
+        colors[i * 3] = 0.9 + t * 0.1
+        colors[i * 3 + 1] = 0.7 + t * 0.1
+        colors[i * 3 + 2] = 0.1 + t * 0.2
+      }
     }
     return [positions, colors]
   }, [count])
