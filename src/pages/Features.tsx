@@ -1,7 +1,22 @@
 import { motion } from 'framer-motion'
 import { Users, Clock, CheckSquare, Package, Home, Brain, TrendingUp, Calendar, ArrowRight } from 'lucide-react'
+import { useSEO } from '../hooks/useSEO'
 
 export default function FeaturesPage() {
+  useSEO({
+    title: '产品功能 - HamR 五维家庭管理系统',
+    description: '了解 HamR 的五大核心功能：人员管理、时间管理、事务管理、物品管理、环境管理，以及 JiaBu AI 智能决策系统。',
+    canonical: 'https://hamr.store/features',
+    ogImage: 'https://hamr.store/og-image.png',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: '产品功能 - HamR',
+      url: 'https://hamr.store/features',
+      description: 'HamR 五维家庭管理系统功能详解',
+    },
+  })
+
   const dimensions = [
     {
       icon: <Users className="w-10 h-10" />,

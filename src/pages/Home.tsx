@@ -7,7 +7,9 @@ import {
 import { useFaceTracking } from '../hooks/useFaceTracking'
 import { useMicrophone } from '../hooks/useMicrophone'
 import { useGestureControl } from '../hooks/useGestureControl'
+import { useSwipe } from '../hooks/useSwipe'
 import InteractiveControls from '../components/InteractiveControls'
+import { useSEO } from '../hooks/useSEO'
 
 const HeroScene = lazy(() => import('../components/three/HeroScene'))
 
@@ -32,7 +34,28 @@ const stats = [
   { value: '24/7', unit: '智能守护', label: 'AI 全天候服务' },
 ]
 
+const homeJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'HamR - 数据主权的家庭智能助理',
+  url: 'https://hamr.store',
+  description: 'HamR 是一个开源的家庭智能助理平台，提供五维数据管理和 AI 智能决策，支持私有部署，永久免费。',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: 'https://hamr.store/?q={search_term_string}',
+    'query-input': 'required name=search_term_string',
+  },
+}
+
 export default function HomePage() {
+  useSEO({
+    title: 'HamR - 数据主权的家庭智能助理 | 五维家庭管理平台',
+    description: 'HamR 是一个开源的家庭智能助理平台，提供五维数据管理（人/时/事/物/境）和 AI 智能决策，支持私有部署，永久免费，保护您的数据隐私。',
+    canonical: 'https://hamr.store/',
+    ogImage: 'https://hamr.store/og-image.png',
+    jsonLd: homeJsonLd,
+  })
+
   const [faceEnabled, setFaceEnabled] = useState(false)
   const [micEnabled, setMicEnabled] = useState(false)
   const [gestureEnabled, setGestureEnabled] = useState(false)
@@ -55,6 +78,10 @@ export default function HomePage() {
   }, [gesture])
 
   const cur = features[activeFeature]
+  const swipeHandlers = useSwipe(
+    () => setActiveFeature(p => (p + 1) % features.length),
+    () => setActiveFeature(p => (p - 1 + features.length) % features.length),
+  )
 
   return (
     <div style={{ background: '#080616' }}>
@@ -181,6 +208,7 @@ export default function HomePage() {
                 transition={{ duration: 0.3 }}
                 className="relative overflow-hidden rounded-3xl p-8 md:p-12 border"
                 style={{ background: cur.bg, borderColor: cur.border }}
+                {...swipeHandlers}
               >
                 <div className="absolute -top-12 -right-12 w-48 h-48 rounded-full blur-3xl opacity-30"
                   style={{ background: cur.color }} />

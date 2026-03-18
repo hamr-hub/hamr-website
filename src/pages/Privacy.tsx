@@ -1,7 +1,21 @@
 import { motion } from 'framer-motion'
 import { Shield, Lock, Eye, FileText } from 'lucide-react'
+import { useSEO } from '../hooks/useSEO'
 
 export default function PrivacyPage() {
+  useSEO({
+    title: '隐私政策 - HamR 数据安全承诺',
+    description: 'HamR 严肃对待数据安全，端到端加密、本地优先、开源透明。了解我们如何保护您的家庭隐私数据。',
+    canonical: 'https://hamr.store/privacy',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: '隐私政策 - HamR',
+      url: 'https://hamr.store/privacy',
+      dateModified: '2026-03-18',
+    },
+  })
+
   return (
     <div className="bg-white">
       {/* Hero */}

@@ -44,6 +44,7 @@ export default function Footer() {
               { name: '帮助中心', href: 'https://help.hamr.store' },
               { name: '服务状态', href: 'https://status.hamr.top' },
               { name: '隐私政策', to: '/privacy', internal: true },
+              { name: '服务条款', to: '/terms', internal: true },
               { name: '联系我们', to: '/about', internal: true },
             ]},
           ].map((col) => (
