@@ -94,6 +94,20 @@ export default function HomePage() {
           </Suspense>
         </div>
 
+        {/* 工程感网格叠加层 */}
+        <div className="absolute inset-0 z-5 pointer-events-none opacity-[0.03]" style={{
+          backgroundImage: `
+            linear-gradient(rgba(124,58,237,0.8) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(124,58,237,0.8) 1px, transparent 1px)
+          `,
+          backgroundSize: '50px 50px'
+        }} />
+
+        {/* 顶部渐变 */}
+        <div className="absolute inset-0 z-10 pointer-events-none" style={{
+          background: 'linear-gradient(to top, #080616 0%, transparent 30%)'
+        }} />
+
         {/* 底部渐变过渡 */}
         <div className="absolute inset-0 z-10 pointer-events-none" style={{
           background: 'linear-gradient(to bottom, transparent 50%, rgba(8,6,22,0.85) 85%, #080616 100%)'
@@ -115,7 +129,7 @@ export default function HomePage() {
               <span className="gradient-text">让爱更有温度</span>
             </h1>
 
-            <p className="text-lg md:text-xl text-white/50 mb-12 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg md:text-xl text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
               数据主权的家庭智能助理，五维数据管理 + AI 智能决策，
               帮助每个家庭更好地规划生活、提升幸福感
             </p>
@@ -218,9 +232,9 @@ export default function HomePage() {
                     <div className="scale-[2.5]">{cur.icon}</div>
                   </div>
                   <div>
-                    <div className="text-white/30 text-sm mb-2">{activeFeature + 1} / {features.length}</div>
+                    <div className="text-white/50 text-sm mb-2">{activeFeature + 1} / {features.length}</div>
                     <h3 className="text-3xl font-bold text-white mb-2">{cur.title}</h3>
-                    <p className="text-white/60 text-lg">{cur.description}</p>
+                    <p className="text-white/80 text-lg font-medium">{cur.description}</p>
                   </div>
                 </div>
               </motion.div>
@@ -259,7 +273,7 @@ export default function HomePage() {
                   {f.icon}
                 </div>
                 <h3 className="font-semibold text-white mb-1">{f.title}</h3>
-                <p className="text-white/40 text-sm">{f.description}</p>
+                <p className="text-white/60 text-sm">{f.description}</p>
               </motion.div>
             ))}
 
@@ -310,7 +324,7 @@ export default function HomePage() {
                   {p.icon}
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">{p.title}</h3>
-                <p className="text-white/50 leading-relaxed">{p.description}</p>
+                <p className="text-white/60 leading-relaxed">{p.description}</p>
               </motion.div>
             ))}
           </div>
@@ -329,7 +343,7 @@ export default function HomePage() {
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-5">
               准备好开始了吗？
             </h2>
-            <p className="text-lg text-white/50 mb-10">加入我们，让家庭生活更智能、更温暖</p>
+            <p className="text-lg text-white/70 mb-10">加入我们，让家庭生活更智能、更温暖</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="https://app.hamr.store" className="btn-primary inline-flex items-center justify-center gap-2 text-base px-8 py-4">
                 立即体验 <ArrowRight className="w-4 h-4" />

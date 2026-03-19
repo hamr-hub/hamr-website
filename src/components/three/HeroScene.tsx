@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Stars } from '@react-three/drei'
+import { OrbitControls, Stars, Grid } from '@react-three/drei'
 import { Suspense, useMemo } from 'react'
 import ParticleField from './ParticleField'
 import FloatingOrb from './FloatingOrb'
@@ -41,6 +41,21 @@ export default function HeroScene({ faceX = 0, faceY = 0, audioLevel = 0 }: Hero
         <pointLight position={[0, -10, 5]} intensity={0.8} color="#818cf8" />
 
         <Stars radius={80} depth={50} count={starCount} factor={3} fade speed={0.4} />
+
+        <Grid
+          position={[0, -3, 0]}
+          args={[20, 20]}
+          cellSize={0.8}
+          cellThickness={0.5}
+          cellColor="#4c1d95"
+          sectionSize={3}
+          sectionThickness={1}
+          sectionColor="#7c3aed"
+          fadeDistance={18}
+          fadeStrength={1}
+          followCamera={false}
+          infiniteGrid
+        />
 
         <ParticleField count={particleCount} audioLevel={audioLevel} />
         <AudioRings audioLevel={audioLevel} />
