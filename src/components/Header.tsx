@@ -28,33 +28,39 @@ export default function Header() {
         ? 'bg-dark-300/80 backdrop-blur-xl border-b border-white/8 shadow-lg shadow-black/20'
         : 'bg-transparent'
     }`}>
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+      <nav className="max-w-7xl mx-auto px-golden md:px-golden-lg">
+        <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2.5 group">
-              <div className="w-9 h-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-glow-sm group-hover:shadow-glow transition-all duration-200">
-                <span className="text-white font-bold text-lg">H</span>
+            <Link to="/" className="flex items-center gap-golden-sm group">
+              <div className="w-9 h-9 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center shadow-glow-sm group-hover:shadow-glow transition-all duration-300">
+                <span className="text-white font-black text-lg">H</span>
               </div>
-              <span className="text-xl font-bold text-white">HamR</span>
+              <span className="text-xl font-extrabold text-white tracking-tight">HamR</span>
             </Link>
           </div>
 
-          <div className="hidden md:flex items-center space-x-1">
+          {/* 3. 重复与统一: 导航链接统一采用 golden-xs 间距与规范字体 */}
+          <div className="hidden md:flex items-center gap-golden-xs">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                className={`px-golden-sm py-2 rounded-lg text-sm font-semibold transition-all duration-300 ${
                   location.pathname === item.path
                     ? 'text-primary-300 bg-primary-500/10'
-                    : 'text-white/60 hover:text-white hover:bg-white/8'
+                    : 'text-white/60 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {item.name}
               </Link>
             ))}
-            <div className="ml-4">
-              <a href="https://app.hamr.store" className="btn-primary text-sm py-2 px-5">
+            
+            {/* 1. 对比与强调: 导航栏中紧凑型主按钮 */}
+            <div className="ml-golden-sm">
+              <a 
+                href="https://app.hamr.store" 
+                className="btn-primary inline-flex items-center justify-center text-xs !px-5 !py-2 !rounded-xl shadow-btn-primary hover:shadow-btn-primary-hover hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300"
+              >
                 立即体验
               </a>
             </div>
@@ -63,31 +69,32 @@ export default function Header() {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/8 transition-colors"
+              className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/5 transition-colors"
             >
               {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
 
+        {/* 移动端菜单 */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-white/8">
-            <div className="flex flex-col space-y-1">
+          <div className="md:hidden py-golden border-t border-white/8">
+            <div className="flex flex-col gap-golden-xs">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-golden py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
                     location.pathname === item.path
                       ? 'text-primary-300 bg-primary-500/10'
-                      : 'text-white/60 hover:text-white hover:bg-white/8'
+                      : 'text-white/60 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="pt-2">
-                <a href="https://app.hamr.store" className="btn-primary block text-center text-sm">
+              <div className="pt-2 px-golden">
+                <a href="https://app.hamr.store" className="btn-primary block text-center text-xs !px-5 !py-2.5 !rounded-xl shadow-btn-primary hover:shadow-btn-primary-hover">
                   立即体验
                 </a>
               </div>
