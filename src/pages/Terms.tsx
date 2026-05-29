@@ -25,7 +25,7 @@ const sections = [
   },
   {
     title: '4. 开源与知识产权',
-    content: `HamR 平台核心代码以 MIT License 许可证完全开源发布，您可依法自由进行商业或非商业性的修改、使用和二次分发。
+    content: `HamR 平台核心代码以 MIT License 许可证完全开源发布，您可依法自由进行商业或非商业性的修改、使用 and 二次分发。
 用户在平台内自主创建的各种家庭日常记录、日历和资产明细数据的知识产权归用户所有。
 "HamR"品牌名称及官方 Logo 商标所有权归 HamR 核心团队所有。`,
   },
@@ -46,7 +46,9 @@ const sections = [
   },
   {
     title: '8. 联络与建议',
-    content: `如果您对服务条款、开源协议实施有任何技术疑问或商务合作建议，请通过以下方式与我们联系：\n官方服务邮箱：support@hamr.store\nGitHub 项目主页：https://github.com/hamr-hub`,
+    content: `如果您对服务条款、开源协议实施有任何技术疑问或商务合作建议，请通过以下方式与我们联系：
+官方服务邮箱：support@hamr.store
+GitHub 项目主页：https://github.com/hamr-hub`,
   },
 ]
 
@@ -60,42 +62,39 @@ export default function TermsPage() {
   return (
     <div className="min-h-screen text-white relative overflow-hidden" style={{ background: '#080616' }}>
       
-      {/* 网格发光叠加背景层 */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style={{
-        backgroundImage: `
-          linear-gradient(rgba(124,58,237,0.8) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(124,58,237,0.8) 1px, transparent 1px)
-        `,
-        backgroundSize: '60px 60px'
-      }} />
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-primary-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 left-10 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-3xl pointer-events-none" />
+      {/* 黄金分割比微光网格背景 */}
+      <div className="grid-glow-overlay" />
+      
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-primary-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-10 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[150px] pointer-events-none" />
 
-      {/* ── Hero 区域 ── */}
-      <section className="relative py-24 z-10 text-center">
+      {/* ── Hero 区域 (对称平衡与留白) ── */}
+      <section className="relative py-golden-3xl z-10 text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-primary-500/30 bg-primary-500/10 text-primary-300 text-xs font-semibold mb-6">
-              <FileText className="w-3.5 h-3.5" />
-              HamR 用户与开发者服务协议
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: 'easeOut' }}>
+            <div className="section-badge mb-golden-md">
+              <FileText className="w-3.5 h-3.5 text-primary-300" />
+              <span>HamR 用户与开发者服务协议</span>
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
+            <h1 className="text-display-sm md:text-display-xl font-extrabold text-white mb-golden tracking-tight">
               服务条款
             </h1>
             
-            <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed font-medium">
+            <p className="text-subheading text-white/70 max-w-2xl mx-auto leading-relaxed font-medium">
               请仔细阅读以下条款，了解您在使用 HamR 各种自建、云端辅助服务时的权利与义务。
             </p>
-            <p className="text-white/40 text-xs mt-4 font-semibold font-mono">最后更新日期：2026年3月18日</p>
+            <p className="text-white/40 text-xs mt-4 font-bold font-mono">最后更新日期：2026年3月18日</p>
           </motion.div>
         </div>
       </section>
 
-      {/* ── 条款详文 (节奏与韵律 - 极简留白排版) ── */}
-      <section className="py-16 relative z-10">
+      <div className="section-divider" />
+
+      {/* ── 条款详文 (简洁与留白 - 极简留白排版) ── */}
+      <section className="py-golden-xl relative z-10">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-6">
+          <div className="space-y-golden-md">
             {sections.map((s, i) => (
               <motion.div
                 key={s.title}
@@ -103,16 +102,16 @@ export default function TermsPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
                 viewport={{ once: true, margin: '-50px' }}
-                className="card-dark p-6 md:p-8 border-l-4 border-l-primary-500 text-left relative overflow-hidden group hover:border-l-primary-400"
+                className="card-dark p-golden-md md:p-golden-lg border-l-4 border-l-primary-500 text-left relative overflow-hidden group hover:border-l-primary-400"
               >
                 <div className="absolute -top-12 -right-12 w-24 h-24 rounded-full blur-2xl opacity-5 bg-primary-500 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none" />
                 <h2 className="text-xl font-bold text-white mb-4 group-hover:text-primary-300 transition-colors duration-200">{s.title}</h2>
-                <p className="text-white/70 leading-relaxed text-sm md:text-base font-medium whitespace-pre-line">{s.content}</p>
+                <p className="text-white/70 leading-relaxed text-sm md:text-base font-semibold whitespace-pre-line">{s.content}</p>
               </motion.div>
             ))}
           </div>
 
-          <div className="mt-16 border-t border-white/5 pt-10 text-center flex flex-col sm:flex-row gap-4 justify-between items-center text-xs text-white/40 font-medium">
+          <div className="mt-16 border-t border-white/5 pt-10 text-center flex flex-col sm:flex-row gap-4 justify-between items-center text-xs text-white/40 font-bold">
             <span className="flex items-center gap-1.5">
               <HelpCircle className="w-4 h-4 text-primary-400" />
               对条款有异议？欢迎致信我们。

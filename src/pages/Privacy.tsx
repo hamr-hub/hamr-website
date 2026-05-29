@@ -19,31 +19,26 @@ export default function PrivacyPage() {
   return (
     <div className="min-h-screen text-white relative overflow-hidden" style={{ background: '#080616' }}>
       
-      {/* 网格发光叠加背景层 */}
-      <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]" style={{
-        backgroundImage: `
-          linear-gradient(rgba(124,58,237,0.8) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(124,58,237,0.8) 1px, transparent 1px)
-        `,
-        backgroundSize: '60px 60px'
-      }} />
-      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-primary-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 left-10 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
+      {/* 黄金分割比微光网格背景 */}
+      <div className="grid-glow-overlay" />
+      
+      <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-primary-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-1/4 left-10 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[150px] pointer-events-none" />
 
-      {/* ── Hero 区域 ── */}
-      <section className="relative py-24 z-10 text-center">
+      {/* ── Hero 区域 (对称平衡与留白) ── */}
+      <section className="relative py-golden-3xl z-10 text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <div className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-6">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: 'easeOut' }}>
+            <div className="section-badge mb-golden-md border-emerald-500/20 bg-emerald-500/10 text-emerald-400">
               <Shield className="w-3.5 h-3.5" />
-              数据安全与家庭隐私主权承诺
+              <span>数据安全与家庭隐私主权承诺</span>
             </div>
             
-            <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 tracking-tight">
+            <h1 className="text-display-sm md:text-display-xl font-extrabold text-white mb-golden tracking-tight">
               您的隐私，<span className="gradient-text font-black">坚不可摧</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed font-medium">
+            <p className="text-subheading text-white/70 max-w-3xl mx-auto leading-relaxed font-medium">
               在 HamR，我们不只是在起草一份“隐私政策”，而是在用开源代码与本地化架构，
               为您和家人的数字尊严修筑坚实的高墙。
             </p>
@@ -51,14 +46,21 @@ export default function PrivacyPage() {
         </div>
       </section>
 
+      <div className="section-divider" />
+
       {/* ── 安全特性 (4列卡片 - 比例与稳定) ── */}
-      <section className="py-16 relative z-10 border-t border-white/5 bg-white/[0.005]">
+      <section className="py-golden-xl relative z-10 bg-white/[0.005]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl md:text-3xl font-extrabold text-white text-center mb-16 tracking-tight">
-            全生命周期的隐私技术支撑
-          </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }} viewport={{ once: true }} className="text-center mb-golden-xl"
+          >
+            <div className="section-badge">隐私技术</div>
+            <h2 className="section-title">全生命周期的隐私技术支撑</h2>
+            <p className="section-subtitle">从底层存储到中转通信，全方位保证家庭数据不出家门</p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-golden-md">
             {[
               {
                 icon: <Shield className="w-8 h-8" />,
@@ -93,9 +95,9 @@ export default function PrivacyPage() {
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
                 viewport={{ once: true }}
-                className="card-dark p-6 relative overflow-hidden group text-left"
+                className="card-dark p-golden-md relative overflow-hidden group text-left border border-white/5"
               >
                 <div className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
                   style={{ background: item.glow }} />
@@ -104,21 +106,23 @@ export default function PrivacyPage() {
                   {item.icon}
                 </div>
                 
-                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-white/60 text-xs leading-relaxed font-medium">{item.desc}</p>
+                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary-300 transition-colors">{item.title}</h3>
+                <p className="text-white/60 text-xs md:text-sm leading-relaxed font-semibold">{item.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
+      <div className="section-divider" />
+
       {/* ── 隐私政策详文 (简洁与留白 - 高质量黑客风排版) ── */}
-      <section className="py-24 relative z-10 border-t border-white/5">
+      <section className="py-golden-2xl relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="card-dark p-8 md:p-12 rounded-3xl border border-white/15 text-left relative overflow-hidden">
-            <div className="absolute -top-24 -left-24 w-48 h-48 rounded-full blur-3xl opacity-10 bg-primary-500" />
+          <div className="card-dark p-golden-lg md:p-golden-xl rounded-3xl border border-white/10 text-left relative overflow-hidden">
+            <div className="absolute -top-24 -left-24 w-48 h-48 rounded-full blur-3xl opacity-10 bg-primary-500 pointer-events-none" />
             
-            <h2 className="text-3xl font-extrabold text-white mb-8 tracking-tight flex items-center gap-2">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-8 tracking-tight flex items-center gap-2">
               <CheckCircle className="w-8 h-8 text-emerald-400" /> 隐私政策详细条款
             </h2>
             
@@ -130,7 +134,7 @@ export default function PrivacyPage() {
                   我们严格遵守 <span className="text-gradient-gold font-bold">最小必要原则</span>。在本地网关运行模式下，
                   我们完全不收集、不汇总、不调阅您的任何家庭生活数据。
                 </p>
-                <p className="text-white/60 text-xs">
+                <p className="text-white/60 text-xs font-semibold">
                   注：若您自愿启用我们的云端消息推送（例如微信推送或手机即时通知），我们会对推送报文进行通道加密（中转即刻销毁），
                   且我们无法解密数据包内容。
                 </p>
@@ -141,7 +145,7 @@ export default function PrivacyPage() {
                 <p>
                   为了极致的安全，您的健康偏好、家庭大事记、日历和物联网温湿度等隐私数据均直接物理存储在您的本地设备上。
                   在进行设备同步时，HamR 采用最新的 <strong>XChaCha20-Poly1305 加密算法</strong> 进行局域网内点对点极速同步，
-                  确保外部嗅探设备绝无解密可能。
+                  确保外部嗅探设备极难解密。
                 </p>
               </div>
 
@@ -172,8 +176,8 @@ export default function PrivacyPage() {
             </div>
 
             <div className="border-t border-white/5 pt-8 mt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/40">
-              <span>生效日期：2026年3月18日</span>
-              <a href="mailto:privacy@hamr.store" className="flex items-center gap-1.5 text-primary-300 font-semibold hover:text-white transition-colors duration-200">
+              <span className="font-semibold">生效日期：2026年3月18日</span>
+              <a href="mailto:privacy@hamr.store" className="flex items-center gap-1.5 text-primary-300 font-bold hover:text-white transition-colors duration-200">
                 <HelpCircle className="w-4 h-4" /> 隐私保护咨询邮箱 <ArrowRight className="w-3.5 h-3.5" />
               </a>
             </div>
