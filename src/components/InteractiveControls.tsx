@@ -72,10 +72,10 @@ export default function InteractiveControls({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="mb-3 bg-secondary-900/90 backdrop-blur-xl border border-white/10 rounded-2xl p-4 w-64 shadow-2xl"
+            className="mb-3 bg-dark-300/90 backdrop-blur-xl border border-white/10 rounded-2xl p-4 w-64 shadow-2xl"
           >
-            <div className="text-xs text-gray-400 font-medium uppercase tracking-wider mb-3">
-              互动控制
+            <div className="text-[10px] text-white/40 font-bold uppercase tracking-widest mb-3 font-mono">
+              交互控制中心
             </div>
             <div className="space-y-3">
               {controls.map((ctrl) => (
@@ -85,8 +85,8 @@ export default function InteractiveControls({
                       onClick={ctrl.onToggle}
                       className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200 flex-1 ${
                         ctrl.enabled
-                          ? 'bg-primary-500/20 text-primary-400 border border-primary-500/30'
-                          : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10'
+                          ? 'bg-primary-500/20 text-primary-300 border border-primary-500/30 shadow-glow-sm'
+                          : 'bg-white/5 text-white/60 border border-white/10 hover:bg-white/10 hover:text-white'
                       }`}
                     >
                       {ctrl.icon}
@@ -106,9 +106,9 @@ export default function InteractiveControls({
             {(faceEnabled || micEnabled || gestureEnabled) && (
               <div className="mt-3 pt-3 border-t border-white/10 space-y-1">
                 {controls.filter(c => c.enabled).map(ctrl => (
-                  <div key={ctrl.key} className="flex justify-between text-xs">
-                    <span className="text-gray-500">{ctrl.label}</span>
-                    <span className="text-primary-400">{ctrl.status}</span>
+                  <div key={ctrl.key} className="flex justify-between text-xs font-medium">
+                    <span className="text-white/40">{ctrl.label}</span>
+                    <span className="text-primary-300">{ctrl.status}</span>
                   </div>
                 ))}
                 {micEnabled && (
@@ -123,8 +123,8 @@ export default function InteractiveControls({
               </div>
             )}
 
-            <div className="mt-3 pt-3 border-t border-white/10 text-xs text-gray-500">
-              🔒 所有数据仅在本地处理，不上传
+            <div className="mt-3 pt-3 border-t border-white/10 text-[10px] text-white/30 font-medium">
+              🔒 数据完全本地处理，绝不上传
             </div>
           </motion.div>
         )}
@@ -136,8 +136,8 @@ export default function InteractiveControls({
         whileTap={{ scale: 0.95 }}
         className={`w-12 h-12 rounded-2xl flex items-center justify-center shadow-2xl transition-all duration-200 ${
           expanded
-            ? 'bg-secondary-800 border border-white/20 text-white'
-            : 'bg-gradient-to-br from-primary-500 to-orange-400 text-white shadow-primary-500/40'
+            ? 'bg-dark-200 border border-white/20 text-white'
+            : 'bg-gradient-to-br from-primary-500 to-orange-400 text-white shadow-glow-sm'
         }`}
       >
         {expanded ? <X className="w-5 h-5" /> : <Camera className="w-5 h-5" />}
