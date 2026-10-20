@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react'
+import { useState, useEffect, useMemo, lazy, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Users, Clock, CheckSquare, Package, Home,
@@ -64,16 +64,38 @@ export default function HomePage() {
 
   const { face, hasPermission: facePermission } = useFaceTracking(faceEnabled)
   const { audioLevel, hasPermission: micPermission } = useMicrophone(micEnabled)
+
+  // 麦克风频谱条的高度。
+  //
+  // 渲染期不能用 `Math.random()`（React 19 纯度规则 react-hooks/purity），
+  // 改用按序号派生的确定性伪随机值 —— 每根条子的"随机感"固定，音量变化时
+  // 整体高度跟着变，视觉上与原来一致。
+  const barHeights = useMemo(
+    () =>
+      Array.from({ length: 24 }, (_, i) => {
+        const jitter = ((i * 2654435761) % 1000) / 1000
+        return 6 + jitter * audioLevel * 48
+      }),
+    [audioLevel],
+  )
   const { gesture, hasPermission: gesturePermission } = useGestureControl(gestureEnabled)
 
   useEffect(() => {
-    if (gesture === 'swipe_left') { setActiveFeature(p => (p + 1) % features.length); setGestureHint('👈 下一个') }
-    else if (gesture === 'swipe_right') { setActiveFeature(p => (p - 1 + features.length) % features.length); setGestureHint('👉 上一个') }
-    else if (gesture === 'open_hand') { setGestureHint('✋ 张开手掌') }
-    else if (gesture === 'fist') { setGestureHint('✊ 握拳') }
-    if (gesture !== 'none') {
-      const t = setTimeout(() => setGestureHint(null), 1500)
-      return () => clearTimeout(t)
+    if (gesture === 'none') return
+
+    // 手势来自摄像头（外部系统）。React 19 的 set-state-in-effect 规则不允许
+    // 在 effect 体里**同步** setState（会触发级联渲染）—— 改成在回调里更新。
+    const apply = setTimeout(() => {
+      if (gesture === 'swipe_left') { setActiveFeature(p => (p + 1) % features.length); setGestureHint('👈 下一个') }
+      else if (gesture === 'swipe_right') { setActiveFeature(p => (p - 1 + features.length) % features.length); setGestureHint('👉 上一个') }
+      else if (gesture === 'open_hand') { setGestureHint('✋ 张开手掌') }
+      else if (gesture === 'fist') { setGestureHint('👊 握拳') }
+    }, 0)
+
+    const hide = setTimeout(() => setGestureHint(null), 1500)
+    return () => {
+      clearTimeout(apply)
+      clearTimeout(hide)
     }
   }, [gesture])
 
@@ -144,10 +166,10 @@ export default function HomePage() {
           {/* 麦克风波形微动 */}
           {micEnabled && audioLevel > 0.05 && (
             <div className="absolute bottom-24 left-1/2 -translate-x-1/2 flex items-end gap-0.5 z-20">
-              {Array.from({ length: 24 }).map((_, i) => (
+              {barHeights.map((h, i) => (
                 <motion.div key={i} className="w-1 rounded-full"
                   style={{ background: `hsl(${270 + i * 4}, 85%, 65%)` }}
-                  animate={{ height: `${6 + Math.random() * audioLevel * 48}px` }}
+                  animate={{ height: `${h}px` }}
                   transition={{ duration: 0.08 }}
                 />
               ))}

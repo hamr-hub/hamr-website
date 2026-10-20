@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Mail, Github, Twitter, Heart, Code2, Users, Star, ArrowRight, ShieldCheck, Compass } from 'lucide-react'
+import { Mail, Github, Twitter, Heart, Code2, Users, ArrowRight, ShieldCheck, Compass } from 'lucide-react'
 import { useSEO } from '../hooks/useSEO'
 
 const team = [

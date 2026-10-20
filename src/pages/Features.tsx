@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import {
   Users, Clock, CheckSquare, Package, Home, Brain, TrendingUp, Calendar, ArrowRight,
-  UserCheck, ShieldCheck, Heart, Sparkles, Activity, Eye, RefreshCw
+  UserCheck, ShieldCheck, Sparkles, Activity, Eye, RefreshCw
 } from 'lucide-react'
 import { useSEO } from '../hooks/useSEO'
 

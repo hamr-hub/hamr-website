@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { FileText, HelpCircle, ArrowLeft } from 'lucide-react'
+import { FileText, HelpCircle } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useSEO } from '../hooks/useSEO'
 

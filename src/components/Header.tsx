@@ -3,17 +3,22 @@ import { Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  // 移动端菜单的开关状态。
+  //
+  // 路由变化时要收起菜单。这里**不用** `useEffect(() => setIsMenuOpen(false),
+  // [location])` —— React 19 的 set-state-in-effect 规则不允许在 effect 体里
+  // 同步 setState（会造成级联渲染）。改为记录「打开菜单时所在的路径」：
+  // 路由一变两者就不相等，菜单自然收起，无需任何 effect。
+  const [menuOpenPath, setMenuOpenPath] = useState<string | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+  const isMenuOpen = menuOpenPath !== null && menuOpenPath === location.pathname
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  useEffect(() => { setIsMenuOpen(false) }, [location])
 
   const navItems = [
     { name: '首页', path: '/' },
@@ -68,7 +73,9 @@ export default function Header() {
 
           <div className="md:hidden flex items-center">
             <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={() => setMenuOpenPath(isMenuOpen ? null : location.pathname)}
+              aria-label={isMenuOpen ? '关闭菜单' : '打开菜单'}
+              aria-expanded={isMenuOpen}
               className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/5 transition-colors"
             >
               {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -84,6 +91,7 @@ export default function Header() {
                 <Link
                   key={item.path}
                   to={item.path}
+                  onClick={() => setMenuOpenPath(null)}
                   className={`px-golden py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
                     location.pathname === item.path
                       ? 'text-primary-300 bg-primary-500/10'

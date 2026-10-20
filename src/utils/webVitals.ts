@@ -44,7 +44,9 @@ export function measureWebVitals() {
     try {
       const observer = new PerformanceObserver((list) => cb(list.getEntries()))
       observer.observe({ type, buffered: true })
-    } catch {}
+    } catch {
+      // 浏览器不支持该 PerformanceObserver 条目类型时静默跳过
+    }
   }
 
   observe('largest-contentful-paint', (entries) => {
